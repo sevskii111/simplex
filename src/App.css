@@ -4,6 +4,17 @@
 
 .table-input {
     width: 60px;
-    border: none;
+    border: none !important;
     text-align: center;
+    background: none;
+}
+
+
+.highlight {
+    background-color: #8BC34A;
+}
+
+.semi-highlight {
+    color: black;
+    background-color: #DCEDC8;
 }

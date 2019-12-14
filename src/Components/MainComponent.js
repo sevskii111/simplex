@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
+import {Col, Row, Container} from 'reactstrap';
 import SizeComponent from './SizeComponent';
 import MatrixComponent from "./MatrixComponent";
 import SadleComponent from "./SadleComponent";
-import {findMin, findMax} from "../helpers/math";
+import LinearComponent from './LinearComponent';
+import {findSaddle, lienarSolve} from "../helpers/math";
 
 class MainComponent extends Component {
     constructor(props) {
@@ -11,7 +13,8 @@ class MainComponent extends Component {
         this.state = {
             width: 1,
             height: 1,
-            matrix: [[0]]
+            matrix: [[0]],
+            linA: false
         };
 
         this.handleSizeChange = this.handleSizeChange.bind(this);
@@ -23,31 +26,32 @@ class MainComponent extends Component {
     }
 
     handleMatrixChange(values) {
-        this.setState({matrix: values});
+        this.setState({matrix: values, saddle: findSaddle(values), linA: lienarSolve(values)});
     }
 
     renderSolution() {
-        const min = findMin(this.state.matrix);
-        const max = findMax(this.state.matrix);
-        if (min >= 0 && max >= 0) {
-            return (<SadleComponent min={min} max={max} price={this.state.matrix[min][max]}/>);
-        } else {
-            return (<SadleComponent min={min} max={max}/>);
-        }
+        if (!this.state.matrix) return;
+        console.log(this.state.linA);
+        return (
+            <>
+                <SadleComponent saddle={this.state.saddle}/>
+                <LinearComponent as={[this.state.linA.a]} ss={[this.state.linA.s]}/>
+            </>);
     }
 
     render() {
-
-
         return (
-            <>
-                <SizeComponent handleSizeChange={this.handleSizeChange}/>
-                <MatrixComponent width={this.state.width} height={this.state.height}
-                                 handleMatrixChange={this.handleMatrixChange}/>
-                {this.renderSolution()}
-            </>
-        )
-            ;
+            <Container fluid>
+                <Row>
+                    <Col xs={{offset: 1, size: "10"}} className="mt-2">
+                        <SizeComponent handleSizeChange={this.handleSizeChange}/>
+                        <MatrixComponent width={this.state.width} height={this.state.height}
+                                         handleMatrixChange={this.handleMatrixChange} saddle={this.state.saddle}/>
+                        {this.renderSolution()}
+                    </Col>
+                </Row>
+            </Container>
+        );
     }
 }
 

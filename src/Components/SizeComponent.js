@@ -23,26 +23,22 @@ class SizeComponent extends Component {
     render() {
         return (
             <Row className="text-left">
-                <Col xs={{size: 11, offset: 1}} md={{size: 6, offset: 1}}>
+                <Col xs={{size: 12}} md={{size: "auto"}}>
                     <h2>
                         Введите размеры таблицы игры:
                     </h2>
                 </Col>
-                <Col xs={12}>
+                <Col xs={11} md={3} className="mt-1">
                     <Form>
                         <FormGroup row>
-                            <Col xs={{size: 6, offset: 1}} md={{size: 2, offset: 1}}>
-                                <Row>
-                                    <Col>
-                                        <Input type="number" placeholder={0} name="width" value={this.state.width}
-                                               onChange={this.handleInput} min={1}/>
-                                    </Col>
-                                    <span className="cross">X</span>
-                                    <Col>
-                                        <Input type="number" placeholder={0} name="height" value={this.state.height}
-                                               onChange={this.handleInput} min={1}/>
-                                    </Col>
-                                </Row>
+                            <Col>
+                                <Input type="number" placeholder={0} name="width" value={this.state.width}
+                                       onChange={this.handleInput} min={1}/>
+                            </Col>
+                            <span className="cross">X</span>
+                            <Col>
+                                <Input type="number" placeholder={0} name="height" value={this.state.height}
+                                       onChange={this.handleInput} min={1}/>
                             </Col>
                         </FormGroup>
                     </Form>

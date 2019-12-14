@@ -1,27 +1,28 @@
 import React from 'react';
 import {Col, Row} from "reactstrap";
 
-const SadleComponent = ({min, max, price}) => {
+const SadleComponent = ({saddle}) => {
     let result;
-    if (min !== -1 && max !== -1) {
-        result = (
-            <>
-                <h2 className="text-success">
-                    Седловая точка найдена:
-                </h2>
-                <h3>({min + 1},{max + 1})</h3>
-                <h4>Цена игры: {price}</h4>
-            </>
-        );
-    } else {
+
+    if (!saddle) {
         result = (
             <h2 className="text-warning">
                 Седловая точка не найдена
             </h2>
         );
+    } else {
+        result = (<>
+                <h2 className="text-success">
+                    Матрица имеет седловую точку
+                </h2>
+                <h3>Координаты точки: ({saddle.x + 1},{saddle.y + 1})</h3>
+                <h3>Цена игры: {saddle.price}</h3>
+            </>
+        );
     }
+
     return (<Row className="text-left">
-            <Col xs={{size: 11, offset: 1}} md={{size: 6, offset: 1}}>
+            <Col xs={12}>
                 <hr/>
                 {result}
             </Col>
