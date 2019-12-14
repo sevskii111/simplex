@@ -126,11 +126,6 @@ class MatrixComponent extends Component {
         return (
             <>
                 <Row>
-                    <Col xs={12}>
-                        <hr/>
-                    </Col>
-                </Row>
-                <Row>
                     <Col xs={12} md="auto">
                         <Table bordered className="text-center" responsive>
                             <tbody>
