@@ -35,7 +35,7 @@ class MainComponent extends Component {
         return (
             <>
                 <SadleComponent saddle={this.state.saddle}/>
-                <LinearComponent as={[this.state.linA.a]} ss={[this.state.linA.s]}/>
+                <LinearComponent matrix={this.state.matrix}/>
             </>);
     }
 

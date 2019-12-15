@@ -2,11 +2,27 @@
     line-height: 2;
 }
 
-.table-input {
+td {
     width: 60px;
-    border: none !important;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.table-input {
+    width: 100%;
+    height: 100%;
+    border: none;
     text-align: center;
     background: none;
+    outline: none;
+}
+
+input[type=number].table-input::-webkit-inner-spin-button,
+input[type=number].table-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 

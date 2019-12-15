@@ -34,7 +34,7 @@ export const findSaddle = (matrix) => {
 export const lienarSolve = (matrix) => {
     const height = matrix.length || 0;
     const width = matrix ? matrix[0].length : 0;
-    if (height !== width) return false;
+    if (height !== width) return {a: [], b: [], s: false};
 
     const a = [];
     for (let i = 0; i < height; i++) {
@@ -51,6 +51,6 @@ export const lienarSolve = (matrix) => {
         const s = linear.solve(a, b);
         return {a, b, s};
     } catch (e) {
-        return false;
+        return {a, b, s: false};
     }
 };
