@@ -4,7 +4,8 @@ import SizeComponent from './SizeComponent';
 import MatrixComponent from "./MatrixComponent";
 import SadleComponent from "./SadleComponent";
 import LinearComponent from './LinearComponent';
-import {findSaddle, lienarSolve} from "../helpers/math";
+import GraphComponent from "./GraphComponent";
+import {findSaddle, lienarSolve, solveGraph} from "../helpers/math";
 
 class MainComponent extends Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class MainComponent extends Component {
             width: 1,
             height: 1,
             matrix: [[0]],
-            linA: false
+            graphSol: false
         };
 
         this.handleSizeChange = this.handleSizeChange.bind(this);
@@ -26,16 +27,17 @@ class MainComponent extends Component {
     }
 
     handleMatrixChange(values) {
-        this.setState({matrix: values, saddle: findSaddle(values), linA: lienarSolve(values)});
+        this.setState({matrix: values, saddle: findSaddle(values), graphSol: solveGraph(values)});
     }
 
     renderSolution() {
         if (!this.state.matrix) return;
-        console.log(this.state.linA);
         return (
             <>
                 <SadleComponent saddle={this.state.saddle}/>
+                <GraphComponent sol={this.state.graphSol}/>
                 <LinearComponent matrix={this.state.matrix}/>
+                <GraphComponent matrix={this.state.matrix}/>
             </>);
     }
 
