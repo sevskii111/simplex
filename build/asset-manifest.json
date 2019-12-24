@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.d9489af8.chunk.css",
-    "main.js": "/static/js/main.69892753.chunk.js",
-    "main.js.map": "/static/js/main.69892753.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.6e603ebc.js",
-    "runtime-main.js.map": "/static/js/runtime-main.6e603ebc.js.map",
-    "static/css/2.17e5ed98.chunk.css": "/static/css/2.17e5ed98.chunk.css",
-    "static/js/2.7035ea25.chunk.js": "/static/js/2.7035ea25.chunk.js",
-    "static/js/2.7035ea25.chunk.js.map": "/static/js/2.7035ea25.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.bbf7af46cb7c469c402b22947dd2d19a.js": "/precache-manifest.bbf7af46cb7c469c402b22947dd2d19a.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.17e5ed98.chunk.css.map": "/static/css/2.17e5ed98.chunk.css.map",
-    "static/css/main.d9489af8.chunk.css.map": "/static/css/main.d9489af8.chunk.css.map",
-    "static/js/2.7035ea25.chunk.js.LICENSE": "/static/js/2.7035ea25.chunk.js.LICENSE"
+    "main.css": "/OTG/build/static/css/main.f587a596.chunk.css",
+    "main.js": "/OTG/build/static/js/main.bb104a64.chunk.js",
+    "main.js.map": "/OTG/build/static/js/main.bb104a64.chunk.js.map",
+    "runtime-main.js": "/OTG/build/static/js/runtime-main.7e524152.js",
+    "runtime-main.js.map": "/OTG/build/static/js/runtime-main.7e524152.js.map",
+    "static/css/2.17e5ed98.chunk.css": "/OTG/build/static/css/2.17e5ed98.chunk.css",
+    "static/js/2.f347650f.chunk.js": "/OTG/build/static/js/2.f347650f.chunk.js",
+    "static/js/2.f347650f.chunk.js.map": "/OTG/build/static/js/2.f347650f.chunk.js.map",
+    "index.html": "/OTG/build/index.html",
+    "precache-manifest.6ced654601a659c20e5620b354ad3093.js": "/OTG/build/precache-manifest.6ced654601a659c20e5620b354ad3093.js",
+    "service-worker.js": "/OTG/build/service-worker.js",
+    "static/css/2.17e5ed98.chunk.css.map": "/OTG/build/static/css/2.17e5ed98.chunk.css.map",
+    "static/css/main.f587a596.chunk.css.map": "/OTG/build/static/css/main.f587a596.chunk.css.map",
+    "static/js/2.f347650f.chunk.js.LICENSE": "/OTG/build/static/js/2.f347650f.chunk.js.LICENSE"
   },
   "entrypoints": [
-    "static/js/runtime-main.6e603ebc.js",
+    "static/js/runtime-main.7e524152.js",
     "static/css/2.17e5ed98.chunk.css",
-    "static/js/2.7035ea25.chunk.js",
-    "static/css/main.d9489af8.chunk.css",
-    "static/js/main.69892753.chunk.js"
+    "static/js/2.f347650f.chunk.js",
+    "static/css/main.f587a596.chunk.css",
+    "static/js/main.bb104a64.chunk.js"
   ]
 }
