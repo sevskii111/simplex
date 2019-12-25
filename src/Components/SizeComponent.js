@@ -32,12 +32,12 @@ class SizeComponent extends Component {
                     <Form>
                         <FormGroup row>
                             <Col>
-                                <Input type="number" placeholder={0} name="width" value={this.state.width}
+                                <Input type="number" placeholder={0} name="height" value={this.state.height}
                                        onChange={this.handleInput} min={1}/>
                             </Col>
                             <span className="cross">X</span>
                             <Col>
-                                <Input type="number" placeholder={0} name="height" value={this.state.height}
+                                <Input type="number" placeholder={0} name="width" value={this.state.width}
                                        onChange={this.handleInput} min={1}/>
                             </Col>
                         </FormGroup>
