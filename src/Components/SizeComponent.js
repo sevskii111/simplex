@@ -15,7 +15,8 @@ class SizeComponent extends Component {
     }
 
     handleInput({target}) {
-        const {name, value} = target;
+        let {name, value} = target;
+        value = value || 1;
         this.setState({[name]: value});
         this.props.handleSizeChange({...this.state, [name]: value});
     }
