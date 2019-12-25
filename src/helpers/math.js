@@ -1,8 +1,5 @@
 import * as linear from "linear-solve";
-import {
-  transpose,
-  intersect
-} from "mathjs";
+import { transpose, intersect } from "mathjs";
 
 export const findSaddle = matrix => {
   const height = matrix.length || 0;
@@ -23,13 +20,13 @@ export const findSaddle = matrix => {
     }
   }
 
-  for (let i = 0; i < height; i++) {
-    for (let j = 0; j < width; j++) {
+  for (let i = 0; i < maxs.length; i++) {
+    for (let j = 0; j < mins.length; j++) {
       if (mins[j] === maxs[i]) {
         return {
           x: i,
           y: j,
-          price: matrix[i][j]
+          price: matrix[j][i]
         };
       }
     }
@@ -162,18 +159,23 @@ export const solveGraph = matrix => {
   points = points
     .filter(p => p.x >= 0 && p.x <= 1 && lines.every(l => f(l, p)))
     .sort((p1, p2) => p1.x - p2.x);
-  console.log(points);
   for (let i = 0; i < points.length - 1; i++) {
     result.bolds.push(
-      new Line(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y));
+      new Line(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y)
+    );
   }
-  const hpoint = points.sort((p1, p2) => p2.y - p1.y)[0];
+  const hpoint = points
+    .filter(
+      p =>
+        p.line1.y1 !== Number.MIN_SAFE_INTEGER &&
+        p.line2.y1 !== Number.MIN_SAFE_INTEGER
+    )
+    .sort((p1, p2) => p2.y - p1.y)[0];
 
-  if (hpoint.line1.y1 !== Number.MIN_SAFE_INTEGER && hpoint.line2.y1 !== Number.MIN_SAFE_INTEGER) {
+  if (hpoint) {
     result.point = hpoint;
     result.superbolds.push(hpoint.line1, hpoint.line2);
   }
 
-  console.log(result.bolds);
   return result;
 };
