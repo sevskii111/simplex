@@ -1,6 +1,8 @@
 import * as linear from "linear-solve";
-import { transpose, intersect } from "mathjs";
-import { func } from "prop-types";
+import {
+  transpose,
+  intersect
+} from "mathjs";
 
 export const findSaddle = matrix => {
   const height = matrix.length || 0;
@@ -162,17 +164,16 @@ export const solveGraph = matrix => {
     .sort((p1, p2) => p1.x - p2.x);
   console.log(points);
   for (let i = 0; i < points.length - 1; i++) {
-    if (points[i].y <= points[i + 1].y && result.superbolds.length === 0) {
-      if (result.superbolds.length === 0) {
-        result.point = points[i];
-        result.superbolds.push(points[i].line1, points[i].line2);
-      }
-    } else {
-      result.bolds.push(
-        new Line(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y)
-      );
-    }
+    result.bolds.push(
+      new Line(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y));
   }
+  const hpoint = points.sort((p1, p2) => p2.y - p1.y)[0];
+
+  if (hpoint.line1.y1 !== Number.MIN_SAFE_INTEGER && hpoint.line2.y1 !== Number.MIN_SAFE_INTEGER) {
+    result.point = hpoint;
+    result.superbolds.push(hpoint.line1, hpoint.line2);
+  }
+
   console.log(result.bolds);
   return result;
 };
