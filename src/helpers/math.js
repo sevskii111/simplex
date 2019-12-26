@@ -120,15 +120,17 @@ export const solveGraph = matrix => {
   };
   const mode = matrix.length === 2 ? "h" : "v";
   let lines;
-  let f;
+  let f, sf;
   if (mode === "h") {
     result.matrix = transpose(matrix);
     lines = matrix[0].map((v, i) => new Line(matrix[1][i] - v, v));
     f = isBellow;
+    sf = (p1, p2) => p2.y - p1.y;
   } else {
     result.matrix = matrix;
     lines = matrix.map(l => new Line(l[1] - l[0], l[0]));
     f = isAbove;
+    sf = (p1, p2) => p1.y - p2.y;
   }
   let points = [];
   const allLines = [
@@ -170,7 +172,7 @@ export const solveGraph = matrix => {
         p.line1.y1 !== Number.MIN_SAFE_INTEGER &&
         p.line2.y1 !== Number.MIN_SAFE_INTEGER
     )
-    .sort((p1, p2) => p2.y - p1.y)[0];
+    .sort(sf)[0];
 
   if (hpoint) {
     result.point = hpoint;

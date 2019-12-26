@@ -10,13 +10,13 @@
     "bootstrap": "^4.4.1",
     "linear-solve": "^1.2.1",
     "mathjs": "^6.2.5",
-    "plotly.js": "^1.51.3",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-plotly.js": "^2.4.0",
     "react-scripts": "3.3.0",
-    "reactstrap": "^8.2.0"
+    "reactstrap": "^8.2.0",
+    "source-map-explorer": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -24,7 +24,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,6 +43,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.1.1"
+    "gh-pages": "^2.1.1",
+    "plotly.js": "^1.51.3"
   }
 }
