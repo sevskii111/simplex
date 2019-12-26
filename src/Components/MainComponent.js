@@ -23,7 +23,7 @@ class MainComponent extends Component {
   }
 
   handleSizeChange({ width, height }) {
-    this.setState({ width, height });
+    this.setState({ width: Math.max(1, width), height: Math.max(1, height) });
   }
 
   handleMatrixChange(values) {
