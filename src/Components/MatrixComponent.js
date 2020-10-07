@@ -9,7 +9,7 @@ class MatrixComponent extends Component {
       height: this.props.height || 1,
       values: this.props.values || [],
       saddle: { x: -1, y: -1 },
-      readonly: this.props.readonly
+      readonly: this.props.readonly,
     };
     if (!this.props.values) {
       for (let i = 0; i < this.state.height; i++) {
@@ -86,28 +86,30 @@ class MatrixComponent extends Component {
     let columns = [];
     columns.push(
       <tr key="0c">
-        <th className="bg-light">Игроки</th>
-        {this.state.values[0].map((v, i) => (
-          <th className="bg-light" key={`-${i}`}>
-            B<sub>{i + 1}</sub>
-          </th>
-        ))}
-        <th className="bg-light">
-          min(A<sub>i</sub>)
-        </th>
+        <th></th>
+        {this.state.values[0]
+          .slice(0, this.state.values[0].length - 2)
+          .map((v, i) => (
+            <th className="bg-light" key={`-${i}`}>
+              X<sub>{i + 1}</sub>
+            </th>
+          ))}
       </tr>
     );
 
     let maxs = [];
     for (let i = 0; i < this.state.height; i++) {
-      let rows = [
-        <th className="bg-light" key={`min-${i}`}>
-          A<sub>{i + 1}</sub>
-        </th>
-      ];
+      let rows = [];
+      if (i === this.state.height - 1) {
+        rows.push(<th key={i}>F</th>);
+      } else {
+        rows.push(<th key={i}></th>);
+      }
       let min = this.state.values[i][0];
-      for (let j = 0; j < this.state.width; j++) {
-        const val = this.props.readonly ? this.props.values[i][j] : this.state.values[i][j];
+      for (let j = 0; j < this.state.width - 2; j++) {
+        const val = this.props.readonly
+          ? this.props.values[i][j]
+          : this.state.values[i][j];
         min = Math.min(min, val);
         if (!maxs[j] || maxs[j] < val) {
           maxs[j] = val;
@@ -126,26 +128,34 @@ class MatrixComponent extends Component {
           </td>
         );
       }
-      rows.push(
-        <td className="bg-light" key={`${i}-min`}>
-          {min}
-        </td>
-      );
+      if (i < this.state.height - 1) {
+        rows.push(
+          <td key={`${i}-${this.state.width - 2}`}>
+            <select
+              className="form-control d-inline"
+              onChange={this.handleInput(i, this.state.width - 2)}
+              value={this.state.values[i][this.state.width - 2]}
+            >
+              <option value="0">≤</option>
+              <option value="1">=</option>
+            </select>
+          </td>
+        );
+        rows.push(
+          <td key={`${i}-${this.state.width - 1}`}>
+            <input
+              type="number"
+              value={this.state.values[i][this.state.width - 1] || ""}
+              placeholder="0"
+              className={`table-input`}
+              key={`${i}-${this.state.width - 1}`}
+              onChange={this.handleInput(i, this.state.width - 1)}
+            />
+          </td>
+        );
+      }
       columns.push(<tr key={i}>{rows}</tr>);
     }
-
-    columns.push(
-      <tr key="lc">
-        <th className="bg-light">
-          max(B<sub>i</sub>)
-        </th>
-        {maxs.map((m, j) => (
-          <td className="bg-light" key={`${j}-`}>
-            {m}
-          </td>
-        ))}
-      </tr>
-    );
 
     return columns;
   }

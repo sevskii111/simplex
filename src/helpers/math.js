@@ -1,7 +1,8 @@
 import * as linear from "linear-solve";
 import { transpose, intersect } from "mathjs";
+import "node-fetch";
 
-export const findSaddle = matrix => {
+export const findSaddle = (matrix) => {
   const height = matrix.length || 0;
   const width = matrix ? matrix[0].length : 0;
 
@@ -26,7 +27,7 @@ export const findSaddle = matrix => {
         return {
           x: i,
           y: j,
-          price: matrix[j][i]
+          price: matrix[j][i],
         };
       }
     }
@@ -35,14 +36,14 @@ export const findSaddle = matrix => {
   return false;
 };
 
-export const lienarSolve = matrix => {
+export const lienarSolve = (matrix) => {
   const height = matrix.length || 0;
   const width = matrix ? matrix[0].length : 0;
   if (height !== width)
     return {
       a: [],
       b: [],
-      s: false
+      s: false,
     };
 
   const a = [];
@@ -61,13 +62,13 @@ export const lienarSolve = matrix => {
     return {
       a,
       b,
-      s
+      s,
     };
   } catch (e) {
     return {
       a,
       b,
-      s: false
+      s: false,
     };
   }
 };
@@ -109,14 +110,14 @@ function isAbove(line, point) {
   return line.b + line.a * point.x - EPSILON <= point.y;
 }
 
-export const solveGraph = matrix => {
+export const solveGraph = (matrix) => {
   if (!matrix || !matrix[0] || !(matrix.length === 2 || matrix[0].length === 2))
     return false;
   let result = {
     matrix: [],
     bolds: [],
     superbolds: [],
-    point: null
+    point: null,
   };
   const mode = matrix.length === 2 ? "h" : "v";
   let lines;
@@ -128,7 +129,7 @@ export const solveGraph = matrix => {
     sf = (p1, p2) => p2.y - p1.y;
   } else {
     result.matrix = matrix;
-    lines = matrix.map(l => new Line(l[1] - l[0], l[0]));
+    lines = matrix.map((l) => new Line(l[1] - l[0], l[0]));
     f = isAbove;
     sf = (p1, p2) => p1.y - p2.y;
   }
@@ -136,7 +137,7 @@ export const solveGraph = matrix => {
   const allLines = [
     ...lines,
     new Line(0, Number.MIN_SAFE_INTEGER, 0, Number.MAX_SAFE_INTEGER),
-    new Line(1, Number.MIN_SAFE_INTEGER, 1, Number.MAX_SAFE_INTEGER)
+    new Line(1, Number.MIN_SAFE_INTEGER, 1, Number.MAX_SAFE_INTEGER),
   ];
   for (let i = 0; i < allLines.length; i++) {
     const l1 = allLines[i];
@@ -152,14 +153,14 @@ export const solveGraph = matrix => {
       const point = new Point(int, l1, l2);
       if (
         point &&
-        !~points.findIndex(p => p.x === point.x && p.y === point.y)
+        !~points.findIndex((p) => p.x === point.x && p.y === point.y)
       ) {
         points.push(point);
       }
     }
   }
   points = points
-    .filter(p => p.x >= 0 && p.x <= 1 && lines.every(l => f(l, p)))
+    .filter((p) => p.x >= 0 && p.x <= 1 && lines.every((l) => f(l, p)))
     .sort((p1, p2) => p1.x - p2.x);
   for (let i = 0; i < points.length - 1; i++) {
     result.bolds.push(
@@ -168,7 +169,7 @@ export const solveGraph = matrix => {
   }
   const hpoint = points
     .filter(
-      p =>
+      (p) =>
         p.line1.y1 !== Number.MIN_SAFE_INTEGER &&
         p.line2.y1 !== Number.MIN_SAFE_INTEGER
     )
@@ -180,4 +181,42 @@ export const solveGraph = matrix => {
   }
 
   return result;
+};
+
+export const solveSimplex = async (matrix) => {
+  try {
+    var myMatrix = matrix.map(function (arr) {
+      return [
+        arr.slice(0, arr.length - 2),
+        arr[arr.length - 2] ? "=" : "<=",
+        arr[arr.length - 1],
+      ];
+    });
+    for (let i = 0; i < myMatrix.length; i++) {
+      myMatrix[i][myMatrix[i].length - 2] = myMatrix[i][myMatrix[i].length - 2]
+        ? "<="
+        : "=";
+    }
+    const res = await fetch(
+      "https://blooming-shelf-93833.herokuapp.com/simplexmethod/",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify([
+          ...myMatrix
+            .slice(myMatrix.length - 1)[0]
+            .slice(0, myMatrix.slice(myMatrix.length - 1)[0].length - 2),
+          myMatrix.slice(0, myMatrix.length - 1),
+        ]),
+      }
+    );
+    const resJson = await res.json();
+    console.log(resJson);
+    return resJson;
+  } catch (e) {
+    return null;
+  }
 };
