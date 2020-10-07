@@ -1,8 +1,8 @@
 {
-  "name": "otg",
+  "name": "simplex",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sevskii111.github.io/OTG",
+  "homepage": "https://sevskii111.github.io/simplex",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -24,7 +24,7 @@
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "yarn build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
